@@ -1,0 +1,255 @@
+@charset "utf-8";
+
+/* CSS RESET */
+
+body, input {
+  margin: 0;
+  padding: 0;
+}
+
+/* COMMON */
+
+body, input {
+  background: white;
+  font: 500 14px/1.5 'Microsoft Yahei', 'STHeiti', sans-serif;
+  color: #333;
+}
+
+input[type="text"] {
+  border: 0;
+  border-bottom: 1px solid #999;
+  min-width: 200px;
+  outline: 0;
+}
+
+a:link, a:visited {
+  color: #28c;
+  text-decoration: none;
+}
+
+a:hover, a:active {
+  color: #6bf;
+}
+
+em {
+  color: #f30;
+}
+
+.hide {
+  display: none;
+}
+
+.fix {
+  *zoom: 1;
+}
+
+.fix:after {
+  clear: both;
+  display: table;
+  content: '';
+}
+
+.btn {
+  border: 0;
+  background: #333;
+  color: white;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #444;
+}
+
+/* PAGE */
+
+.wrap {
+  width: 960px;
+  margin: 20px auto;
+}
+
+.meta {
+  font-size: 12px;
+  font-style: italic;
+  margin-bottom: 10px;
+  color: #999;
+  text-align: right;
+}
+
+.table {
+  width: 100%;
+  font-size: inherit;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.table tr:nth-child(2n) {
+  background: #f6f6f6;
+}
+
+.table th, .table td {
+  padding: 6px;
+  line-height: 20px;
+  text-align: left;
+  vertical-align: middle;
+  border-top: 1px solid #ddd;
+  position: relative;
+}
+
+.table th {
+  font-weight: 700;
+  background: #333;
+  color: white;
+}
+
+.table th, .table tr:first-child td {
+  border-top: 0;
+}
+
+.co-avatar {
+  width: 64px;
+  height: 64px;
+  overflow: hidden;
+  border-radius: 64px;
+  position: absolute;
+  top: -16px;
+  left: -52px;
+  z-index: 9999;
+}
+
+.co-avatar img {
+  max-width: 64px;
+}
+
+.table tr:hover .hide {
+  display: block;
+}
+
+.vote:before, .vote-plus:before {
+  color: #333;
+}
+
+.footer {
+  margin: 20px 0;
+  font-size: 12px;
+  color: #999;
+}
+
+/* Vote plus wrap */
+
+#vpw {
+  background: white;
+  padding: 20px;
+}
+
+.vpw-inline {
+  float: left;
+  margin-right: 20px;
+}
+
+#vpw-avatar {
+  max-width: 128px;
+}
+
+#vpw-name {
+  margin: 0;
+  font-size: 18px;
+}
+
+.vpw-content p {
+  margin: 10px 0;
+}
+
+/* Font */
+
+@font-face {
+  font-family: 'fontello';
+  src: url('font/fontello.eot?30809413');
+  src: url('font/fontello.eot?30809413#iefix') format('embedded-opentype'),
+        url('font/fontello.woff?30809413') format('woff'),
+        url('font/fontello.ttf?30809413') format('truetype'),
+        url('font/fontello.svg?30809413#fontello') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'fontello';
+    src: url('font/fontello.svg?30809413#fontello') format('svg');
+  }
+}
+
+[class^="icon-"]:before, [class*=" icon-"]:before {
+  font-family: "fontello";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+ 
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+
+  font-variant: normal;
+  text-transform: none;
+
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+}
+
+.icon-thumbs-up-alt:before { content: '\e800'; } /* '' */
+.icon-thumbs-up:before { content: '\e808'; } /* '' */
+
+/* NOTICE */
+
+.notice-wrap {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 250px;
+  z-index: 99999;
+}
+
+* html .notice-wrap {
+  position: absolute;
+}
+
+.notice-item {
+  height: 60px;
+  background: rgba(0, 0, 0, .75);
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  color: #eee;
+  padding: 6px 6px 0 6px;
+  font-family: lucida Grande;
+  font-size: 12px;
+  display: block;
+  position: relative;
+  margin: 0 0 12px 0;
+}
+
+.notice-item.success {
+  background: rgba(223, 240, 216, .85);
+  color: #468847;
+}
+
+.notice-item.error {
+  background: rgba(242, 222, 222, .85);
+  color: #b94a48;
+}
+
+.notice-item-close {
+  position: absolute;
+  font-family: Arial;
+  font-size: 12px;
+  font-weight: bold;
+  right: 6px;
+  top: 6px;
+  cursor: pointer;
+}

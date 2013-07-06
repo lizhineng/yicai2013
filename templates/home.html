@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block main %}
+  <div class="wrap">
+    <h1>第一财经第一届最佳理财师评选投票排名</h1>
+    <div class="meta">Last update: {{ lastUpdate }} from lcs.yicai.com</div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th></th>
+          <th>Name</th>
+          <th>Unit</th>
+          <th style="width: 14%">Tickets</th>
+          <th style="width: 30%">Case</th>
+          <th style="width: 6%"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in range(counter) %}
+          <tr>
+            <td>{{ i + 1 }}</td>
+            <td><div class="co-avatar hide"><img src="{{ contestants[i]['avatar'] }}"></div></td>
+            <td>{{ contestants[i]['name'] }}</td>
+            <td>{{ contestants[i]['unit'] }}</td>
+            <td>
+              <span id="tickets-{{ contestants[i]['cid'] }}">{{ contestants[i]['tickets'] }}</span>
+              <em id="tickets-plus-{{ contestants[i]['cid'] }}" class="tickets-plus"></em>
+            </td>
+            <td><a href="{{ contestants[i]['case']['url'] }}">{{ contestants[i]['case']['label'] }}</a></td>
+            <td>
+              <div class="hide">
+                <a href="javascript:void(0)" title="Vote" class="vote icon-thumbs-up" data-cid="{{ contestants[i]['cid'] }}"></a>
+                <a href="javascript:void(0)" title="Vote+" class="vote-plus icon-thumbs-up-alt" data-cid="{{ contestants[i]['cid'] }}"></a>
+              </div>
+            </td>
+          </tr>
+        {% end %}
+      </tbody>
+    </table>
+    <footer class="footer">仅供学习与技术交流之用，请勿用于非法用途，操作后果作者概不负责。<br>Powered by <a href="http://zhineng.li">Li Zhineng</a>.</footer>
+  </div>
+  <div id="vpw" class="hide fix">
+    <form action="javascript:void(0)">
+      <div class="vpw-inline">
+        <img id="vpw-avatar">
+      </div>
+      <div class="vpw-inline">
+        <h1 id="vpw-name"></h2>
+        <div class="vpw-content">
+          <p id="vpw-unit"></p>
+          <p><a id="vpw-case" href="javascript:void"></a></p>
+          <p><strong>Tickets:</strong> <span id="vpw-tickets"></span> + <input type="text" id="vpw-tickets-add" placeholder="Tickets you want to vote ..."><input type="hidden" id="vpw-cid"></p>
+          <p style="font-size: 12px;color: #666;">Note: This operation is not reversible, please think more carefully!</p>
+          <p><input type="submit" id="vpw-submit" class="btn" value="Vote"></p>
+        </div>
+      </div>
+    </form>
+  </div>
+  <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+  <script src="{{ static_url('js/jquery.thfloat-0.7.min.js') }}"></script>
+  <script src="{{ static_url('js/jquery.bpopup.min.js') }}"></script>
+  <script src="{{ static_url('js/jquery.notice.js') }}"></script>
+  <script src="{{ static_url('js/global.min.js') }}"></script>
+{% end %}
