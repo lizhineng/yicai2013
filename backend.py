@@ -60,7 +60,14 @@ class RequestsThread(threading.Thread):
       unit = self.q.get()
 
       # Grabs chunk of webpage
-      chunk = requests.get(baseUrl % unit, timeout = 5).text
+      s = requests.Session()
+      a = requests.adapters.HTTPAdapter(max_retries = 10)
+      s.mount('http://', a)
+      try:
+        chunk = s.get(baseUrl % unit, timeout = 5).text
+      except requests.exceptions.Timeout: # if grabs faild
+        logging.error('Grabs %s faild' % (baseUrl % unit))
+        chunk = ''
 
       # Place chunk into beautiful soup queue
       self.bsq.put({ 'unit': unit, 'html': chunk })
