@@ -1,16 +1,17 @@
 # Yicai2013
-The alexa of the first Yicai's financial match, also you can vote for somebody unlimitedly. : )
+The ranking of the first Yicai financial match, also you can vote for somebody unlimitedly. : )
 
-**Note:** This application may become invalid after 17th July, 2013
+**Note:** This application may unavailable after 17th July, 2013
 
 ## Usage
 1. Modify the configuration file, `settings.conf`.
-2. $ `python3 backend.py`, also you can add `--interval=5`, the interval unit is second
-3. $ `python3 serve.py`
+2. `$ python3 backend.py`, also you can add `--interval=5`, the interval unit is second
+3. `$ python3 serve.py`
 
 ## Requirement
 ### Server
 * Python3
+* Tornado
 * BeautifulSoup 4
 * Requests 1
 
@@ -21,7 +22,7 @@ The alexa of the first Yicai's financial match, also you can vote for somebody u
 ## License
 The MIT License (MIT)
 
-Copyright (c) 2013 Li Zhineng <lizhineng#gmail.com> and other `Yicai2013` contributors
+Copyright (c) 2013 Li Zhineng &lt;lizhineng#gmail.com&gt; and other yicai2013 contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
