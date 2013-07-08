@@ -5,6 +5,7 @@ import queue
 import threading
 import requests
 import logging
+import socket
 from tornado.options import define, options, parse_config_file, parse_command_line
 from pymongo import MongoClient
 from bs4 import BeautifulSoup
@@ -65,7 +66,7 @@ class RequestsThread(threading.Thread):
       s.mount('http://', a)
       try:
         chunk = s.get(baseUrl % unit, timeout = 5).text
-      except requests.exceptions.Timeout: # if grabs faild
+      except (requests.exceptions.Timeout, socket.timeout): # if grabs faild
         logging.error('Grabs %s faild' % (baseUrl % unit))
         chunk = ''
 
