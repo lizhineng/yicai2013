@@ -1,6 +1,5 @@
 import logging
 import os.path
-import multiprocessing
 import tornado.ioloop
 import tornado.web
 from tornado.options import options, parse_config_file
@@ -30,15 +29,14 @@ class VoteHandler(tornado.web.RequestHandler):
       return
 
     # Between 1 ~ ???
-    if tickets is str or tickets < 1:
+    if tickets > 0:
+      if tickets == 1:
+        result = vote.vote(cid)
+        self.write(result)
+      else: # Maybe a big number
+        vote.voteHelper(cid, tickets)
+    else:
       return
-    elif tickets == 1:
-      result = vote.vote(cid)
-      self.write(result)
-    else: # Maybe a big number
-      # Create a new process to handle the vote request
-      p = multiprocessing.Process(target=vote.voteHelper, args=(cid, tickets))
-      p.start()
 
 config = dict(
   debug = options.debug,

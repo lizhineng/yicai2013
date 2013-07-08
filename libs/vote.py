@@ -5,13 +5,19 @@ import random
 import queue
 import threading
 
+# Create a new queue
+voteQueue = queue.Queue()
+
+# Wait on the queue until everything has been processed
+voteQueue.join()
+
 def vote(cid):
   '''Vote for someone whose id is cid
 
   Args:
   cid: the contestant id
 
-  Return the HTTP request
+  Return the HTTP response
 
   Author: Li Zhineng <lizhineng@gmail.com>
   Url: http://zhineng.li
@@ -29,8 +35,9 @@ def vote(cid):
     'Referer': 'http://lcs.yicai.com'
   }
 
-  obj = requests.get('http://lcs.yicai.com/do.php?ac=vote&inajax=1&op=vote&type=user&id=' + cid, headers = headers)
-  return obj.text
+  r = requests.get('http://lcs.yicai.com/do.php?ac=vote&inajax=1&op=vote&type=user&id=' + cid, headers = headers)
+  r.close()
+  return r.text
 
 class _voteThread(threading.Thread):
   '''Vote for someone (Just a Thread class)
@@ -52,23 +59,22 @@ class _voteThread(threading.Thread):
       # Signals to queue job is done
       self.q.task_done()
 
+# Spawn a pool of threads
+for i in range(20):
+  st = _voteThread(voteQueue)
+  st.setDaemon(True)
+  st.start()
+
 def voteHelper(cid, tickets):
-  '''Vote helper (multithreading)
+  '''Vote helper
+
+  Put request into voteQueue
+
+  Args:
+    cid: contestant id
+    tickets: tickets you want to vote
   '''
-  # Create a new queue
-  voteQueue = queue.Queue()
-
-  # Tickets that you want to vote
   [voteQueue.put(cid) for i in range(int(tickets))]
-
-  # Spawn a pool of threads
-  for i in range(20):
-    st = _voteThread(voteQueue)
-    st.setDaemon(True)
-    st.start()
-
-  # Wait on the queues until everything has been processed
-  voteQueue.join()
 
 if __name__ == '__main__':
   pass
