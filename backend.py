@@ -206,11 +206,6 @@ def main():
     st.setDaemon(True)
     st.start()
 
-  # Wait on the queues until everything has been processed
-  requestsQueue.join()
-  bsQueue.join()
-  sotreQueue.join()
-
 if __name__ == '__main__':
   '''Parse command line
 
@@ -241,5 +236,10 @@ if __name__ == '__main__':
       # Sleep 10 seconds to wait the queues to finish all tasks
       time.sleep(10)
       createInstallLock()
+
+    # Wait on the queues until everything has been processed
+    requestsQueue.join()
+    bsQueue.join()
+    sotreQueue.join()
 
     time.sleep(options.interval)
