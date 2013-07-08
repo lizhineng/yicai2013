@@ -183,25 +183,17 @@ class StoreThread(threading.Thread):
       self.q.task_done()
 
 def main():
-  '''Get the contestants' infomation of the first Yicai's financial match
-    then put them into database.
+  '''Get the contestants' infomation of the first Yicai financial match
+    and then put them into database.
 
   Author: Li Zhineng <lizhineng@gmail.com>
   URL: http://zhineng.li
   '''
-  # Banks
-  units = ['中国银行', '招商银行', '交通银行', '平安银行', '兴业银行', '光大银行', '汇丰银行',
-              '东亚银行', '星展银行', '大华银行', '建设银行', '泽世投资', '诺亚财富', '海银金融',
-              '平安信托', '百基资产', '国泰君安', '嘉华财富', '华泰证券', '华泰人寿', '中国平安']
-
   # Spawn a pool of threads, and pass them queue instance
   for i in range(10):
     rt = RequestsThread(requestsQueue, bsQueue)
     rt.setDaemon(True)
     rt.start()
-
-  for unit in units:
-    requestsQueue.put(unit)
 
   for i in range(8):
     bt = BsThread(bsQueue, sotreQueue)
@@ -218,14 +210,6 @@ def main():
   bsQueue.join()
   sotreQueue.join()
 
-  # Update last update
-  db.info.update({ 'name': 'lastUpdate' }, { '$set': {
-    'value': datetime.datetime.now()
-  }}, upsert = True)
-
-  if not isInstall():
-    createInstallLock()
-
 if __name__ == '__main__':
   '''Parse command line
 
@@ -234,8 +218,27 @@ if __name__ == '__main__':
   '''
   parse_command_line()
 
+  main()
+
+  # Banks
+  units = ['中国银行', '招商银行', '交通银行', '平安银行', '兴业银行', '光大银行', '汇丰银行',
+              '东亚银行', '星展银行', '大华银行', '建设银行', '泽世投资', '景淳投资', '海银金融',
+              '平安信托', '百基资产', '国泰君安', '嘉华财富', '华泰证券', '华泰人寿', '中国平安']
+
+  # Pass the units into requestsQueue every `options.interval` seconds
   while True:
-    start = time.time()
-    main()
-    logging.info('Elapsed time: ' + str(time.time() - start))
+    for unit in units:
+      requestsQueue.put(unit)
+
+    # Update last update
+    db.info.update({ 'name': 'lastUpdate' }, { '$set': {
+      'value': datetime.datetime.now()
+    }}, upsert = True)
+
+    # Create install lock if the app hasn't been installed
+    if not isInstall():
+      # Sleep 10 seconds to wait the queues to finish all tasks
+      time.sleep(10)
+      createInstallLock()
+
     time.sleep(options.interval)
