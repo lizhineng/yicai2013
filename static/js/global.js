@@ -105,16 +105,17 @@
     // Close the popup
     $('#vpw').bPopup().close();
 
+    // Send notification
+    $.noticeAdd({
+      text: 'Your Vote+ request has been sent, please check out later : )',
+      type: 'success',
+      stayTime: 6000
+    });
+
     // Ajax: send the Vote+ request
     $.get('vote', {
       cid: cid,
       tickets: tickets
-    }, function(){
-      $.noticeAdd({
-        text: 'Your Vote+ request has been request, please check out later. : )',
-        type: 'success',
-        stayTime: 6000
-      });
     });
   });
 
