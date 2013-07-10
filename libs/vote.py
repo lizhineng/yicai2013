@@ -32,6 +32,7 @@ def vote(cid):
   # Custom headers
   headers = {
     'X-Forwarded-For': ip,
+    'CLIENT-IP': ip,
     'Referer': 'http://lcs.yicai.com'
   }
 
